@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - BMW M Selection</title>
+    <meta name="description" content="Explore our BMW workshop gallery. See our precision work on M3, M4, X5, and other BMW models.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bmw-white: #FFFFFF;
+            --bmw-light-gray: #F4F4F4;
+            --bmw-gray: #E8E8E8;
+            --bmw-dark-gray: #666666;
+            --bmw-black: #1C1C1C;
+            --bmw-blue-light: #1C69D4;
+            --bmw-blue-dark: #0066B1;
+            --bmw-m-blue: #00A4E4;
+            --bmw-m-red: #E31E24;
+            --bmw-m-purple: #7B2F8E;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bmw-white);
+            color: var(--bmw-black);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bmw-white);
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bmw-black);
+            text-decoration: none;
+        }
+
+        .logo-m {
+            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bmw-dark-gray);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--bmw-blue-light);
+        }
+
+        .cta-button {
+            background: var(--bmw-blue-light);
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--bmw-blue-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--bmw-light-gray), var(--bmw-white));
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--bmw-black);
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--bmw-dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Filters */
+        .gallery-filters {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bmw-white);
+            border: 2px solid var(--bmw-gray);
+            color: var(--bmw-dark-gray);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--bmw-blue-light);
+            border-color: var(--bmw-blue-light);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,164,228,0.15), rgba(227,30,36,0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--bmw-dark-gray);
+            position: relative;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .gallery-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--bmw-blue-light);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-image {
+            width: 100%;
+            max-height: 80vh;
+            background: linear-gradient(135deg, rgba(0,164,228,0.2), rgba(227,30,36,0.2));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            padding: 4rem;
+        }
+
+        .lightbox-info {
+            color: white;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .lightbox-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1);
+            background: var(--bmw-m-red);
+            color: white;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: 2rem;
+        }
+
+        .lightbox-next {
+            right: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bmw-black);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--bmw-m-blue);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .whatsapp-btn {
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-nav {
+                width: 50px;
+                height: 50px;
+            }
+
+            .lightbox-prev {
+                left: 1rem;
+            }
+
+            .lightbox-next {
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="cta-button">Book Service</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Our Work Gallery</h1>
+        <p class="page-subtitle">Excellence in every detail. Explore our BMW workshop projects and precision craftsmanship.</p>
+    </section>
+
+    <!-- Gallery Filters -->
+    <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">All Models</button>
+        <button class="filter-btn" data-filter="m-series">M Series</button>
+        <button class="filter-btn" data-filter="x-series">X Series</button>
+        <button class="filter-btn" data-filter="3-series">3 Series</button>
+        <button class="filter-btn" data-filter="5-series">5 Series</button>
+        <button class="filter-btn" data-filter="performance">Performance</button>
+        <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- M Series -->
+            <div class="gallery-item" data-category="m-series performance" data-index="0">
+                <div class="gallery-category">M3 Competition</div>
+                <div class="gallery-image">
+                    <span>🏎️ M3 Stage 2 Build</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">M3 Competition Stage 2</div>
+                    <div class="gallery-description">ECU tune, downpipes, and exhaust system</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="m-series performance" data-index="1">
+                <div class="gallery-category">M4 G82</div>
+                <div class="gallery-image">
+                    <span>🚗 M4 Performance Pack</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">M4 G82 Full Build</div>
+                    <div class="gallery-description">Complete performance package with suspension</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="m-series maintenance" data-index="2">
+                <div class="gallery-category">M2 CS</div>
+                <div class="gallery-image">
+                    <span>🔧 M2 CS Service</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">M2 CS Major Service</div>
+                    <div class="gallery-description">Complete inspection and maintenance</div>
+                </div>
+            </div>
+
+            <!-- X Series -->
+            <div class="gallery-item" data-category="x-series maintenance" data-index="3">
+                <div class="gallery-category">X5 M50i</div>
+                <div class="gallery-image">
+                    <span>🚙 X5 Diagnostics</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">X5 M50i Diagnostic Service</div>
+                    <div class="gallery-description">Complete system scan and repair</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="x-series performance" data-index="4">
+                <div class="gallery-category">X3 M40i</div>
+                <div class="gallery-image">
+                    <span>⚙️ X3 Performance</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">X3 M40i Stage 1 Tune</div>
+                    <div class="gallery-description">ECU optimization and air intake</div>
+                </div>
+            </div>
+
+            <!-- 3 Series -->
+            <div class="gallery-item" data-category="3-series maintenance" data-index="5">
+                <div class="gallery-category">340i G20</div>
+                <div class="gallery-image">
+                    <span>🔍 340i Service</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">340i G20 Inspection II</div>
+                    <div class="gallery-description">Major service package completed</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="3-series performance" data-index="6">
+                <div class="gallery-category">330i F30</div>
+                <div class="gallery-image">
+                    <span>🚀 330i Upgrade</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">330i F30 Performance Build</div>
+                    <div class="gallery-description">Turbo upgrade and intercooler</div>
+                </div>
+            </div>
+
+            <!-- 5 Series -->
+            <div class="gallery-item" data-category="5-series maintenance" data-index="7">
+                <div class="gallery-category">540i G30</div>
+                <div class="gallery-image">
+                    <span>⚡ 540i Electrical</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">540i G30 Electrical Repair</div>
+                    <div class="gallery-description">Battery registration and module coding</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="5-series performance" data-index="8">
+                <div class="gallery-category">M550i</div>
+                <div class="gallery-image">
+                    <span>🏁 M550i Tune</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">M550i ECU Tune</div>
+                    <div class="gallery-description">Stage 1 performance optimization</div>
+                </div>
+            </div>
+
+            <!-- More Performance Work -->
+            <div class="gallery-item" data-category="m-series performance" data-index="9">
+                <div class="gallery-category">M5 F90</div>
+                <div class="gallery-image">
+                    <span>💨 M5 Exhaust</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">M5 F90 Exhaust System</div>
+                    <div class="gallery-description">Custom exhaust and downpipes install</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="m-series performance" data-index="10">
+                <div class="gallery-category">M8 Competition</div>
+                <div class="gallery-image">
+                    <span>🛞 M8 Brakes</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">M8 Competition Brake Upgrade</div>
+                    <div class="gallery-description">Carbon ceramic brake system</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="3-series maintenance" data-index="11">
+                <div class="gallery-category">320d</div>
+                <div class="gallery-image">
+                    <span>🔧 320d Maintenance</span>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-title">320d Engine Service</div>
+                    <div class="gallery-description">Timing chain and oil service</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+        <div class="lightbox-prev lightbox-nav" onclick="navigateLightbox(-1)">‹</div>
+        <div class="lightbox-next lightbox-nav" onclick="navigateLightbox(1)">›</div>
+        <div class="lightbox-content">
+            <div class="lightbox-image" id="lightboxImage"></div>
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-description" id="lightboxDescription"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BMW M Selection</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="booking.html">Book Service</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="services.html#diagnostics">Diagnostics & Coding</a></li>
+                    <li><a href="services.html#performance">Performance Upgrades</a></li>
+                    <li><a href="services.html#maintenance">Maintenance</a></li>
+                    <li><a href="services.html#suspension">Suspension & Brakes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📧 info@bmwmselection.com</li>
+                    <li>📍 123 Performance Drive</li>
+                    <li>⏰ Mon-Sat: 8AM - 6PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BMW M Selection. All rights reserved. | Independent BMW Specialist</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <div class="floating-contact">
+        <a href="https://wa.me/1555123456" target="_blank" class="whatsapp-btn">💬</a>
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        let visibleImages = [];
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                visibleImages = [];
+                galleryItems.forEach(item => {
+                    const categories = item.dataset.category;
+                    if (filter === 'all' || categories.includes(filter)) {
+                        item.classList.remove('hidden');
+                        visibleImages.push(item);
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Initialize visible images
+        visibleImages = Array.from(galleryItems);
+
+        // Lightbox functionality
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('.gallery-title').textContent;
+                const description = item.querySelector('.gallery-description').textContent;
+                const imageText = item.querySelector('.gallery-image span').textContent;
+                
+                document.getElementById('lightboxImage').innerHTML = `<span>${imageText}</span>`;
+                document.getElementById('lightboxTitle').textContent = title;
+                document.getElementById('lightboxDescription').textContent = description;
+                
+                currentImageIndex = visibleImages.indexOf(item);
+                document.getElementById('lightbox').classList.add('active');
+            });
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function navigateLightbox(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = visibleImages.length - 1;
+            if (currentImageIndex >= visibleImages.length) currentImageIndex = 0;
+            
+            const item = visibleImages[currentImageIndex];
+            const title = item.querySelector('.gallery-title').textContent;
+            const description = item.querySelector('.gallery-description').textContent;
+            const imageText = item.querySelector('.gallery-image span').textContent;
+            
+            document.getElementById('lightboxImage').innerHTML = `<span>${imageText}</span>`;
+            document.getElementById('lightboxTitle').textContent = title;
+            document.getElementById('lightboxDescription').textContent = description;
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Close lightbox when clicking outside
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        });
+    </script>
+</body>
+</html>

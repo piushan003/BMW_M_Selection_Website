@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service - BMW M Selection</title>
+    <meta name="description" content="Book your BMW service appointment online. Quick, easy, and convenient scheduling.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bmw-white: #FFFFFF;
+            --bmw-light-gray: #F4F4F4;
+            --bmw-gray: #E8E8E8;
+            --bmw-dark-gray: #666666;
+            --bmw-black: #1C1C1C;
+            --bmw-blue-light: #1C69D4;
+            --bmw-blue-dark: #0066B1;
+            --bmw-m-blue: #00A4E4;
+            --bmw-m-red: #E31E24;
+            --bmw-m-purple: #7B2F8E;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bmw-light-gray);
+            color: var(--bmw-black);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bmw-white);
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bmw-black);
+            text-decoration: none;
+        }
+
+        .logo-m {
+            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bmw-dark-gray);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--bmw-blue-light);
+        }
+
+        /* Booking Container */
+        .booking-container {
+            max-width: 900px;
+            margin: 120px auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .booking-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .booking-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--bmw-black);
+        }
+
+        .booking-subtitle {
+            font-size: 1.2rem;
+            color: var(--bmw-dark-gray);
+        }
+
+        /* Booking Form Card */
+        .booking-card {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--bmw-black);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--bmw-blue-light), var(--bmw-m-blue));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--bmw-black);
+        }
+
+        .form-group label .required {
+            color: var(--bmw-m-red);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--bmw-gray);
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--bmw-blue-light);
+            box-shadow: 0 0 0 3px rgba(28,105,212,0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            border: 2px solid var(--bmw-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-checkbox:hover {
+            border-color: var(--bmw-blue-light);
+            background: rgba(28,105,212,0.05);
+        }
+
+        .service-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .service-checkbox input[type="checkbox"]:checked + label {
+            color: var(--bmw-blue-light);
+            font-weight: 600;
+        }
+
+        .submit-button {
+            background: var(--bmw-blue-light);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background: var(--bmw-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #10B981;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+            animation: slideDown 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-message {
+            color: var(--bmw-m-red);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-group.error .form-input,
+        .form-group.error .form-select {
+            border-color: var(--bmw-m-red);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bmw-black);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--bmw-m-blue);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        @media (max-width: 768px) {
+            .booking-title {
+                font-size: 2rem;
+            }
+
+            .booking-card {
+                padding: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Booking Container -->
+    <div class="booking-container">
+        <div class="booking-header">
+            <h1 class="booking-title">Book Your Service</h1>
+            <p class="booking-subtitle">Schedule your BMW service appointment in just a few clicks</p>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            ✓ Booking submitted successfully! We'll contact you shortly to confirm your appointment.
+        </div>
+
+        <div class="booking-card">
+            <form id="bookingForm">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="section-number">1</span>
+                        Personal Information
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="fullName" name="fullName" class="form-input" required>
+                            <div class="error-message">Please enter your full name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                            <div class="error-message">Please enter a valid phone number</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                </div>
+
+                <!-- Vehicle Information -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="section-number">2</span>
+                        Vehicle Information
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="bmwModel">BMW Model <span class="required">*</span></label>
+                            <select id="bmwModel" name="bmwModel" class="form-select" required>
+                                <option value="">Select your BMW model</option>
+                                <optgroup label="M Series">
+                                    <option value="M2">M2</option>
+                                    <option value="M3">M3</option>
+                                    <option value="M4">M4</option>
+                                    <option value="M5">M5</option>
+                                    <option value="M8">M8</option>
+                                </optgroup>
+                                <optgroup label="X Series">
+                                    <option value="X1">X1</option>
+                                    <option value="X2">X2</option>
+                                    <option value="X3">X3</option>
+                                    <option value="X4">X4</option>
+                                    <option value="X5">X5</option>
+                                    <option value="X6">X6</option>
+                                    <option value="X7">X7</option>
+                                </optgroup>
+                                <optgroup label="Sedan">
+                                    <option value="3 Series">3 Series</option>
+                                    <option value="5 Series">5 Series</option>
+                                    <option value="7 Series">7 Series</option>
+                                </optgroup>
+                                <optgroup label="Other">
+                                    <option value="Z4">Z4</option>
+                                    <option value="8 Series">8 Series</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
+                            <div class="error-message">Please select your BMW model</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year</label>
+                            <input type="number" id="year" name="year" class="form-input" placeholder="e.g., 2022" min="1990" max="2026">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vin">VIN (Optional)</label>
+                        <input type="text" id="vin" name="vin" class="form-input" placeholder="Vehicle Identification Number">
+                    </div>
+                </div>
+
+                <!-- Service Selection -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="section-number">3</span>
+                        Service Required <span style="font-size: 0.9rem; font-weight: 400;">(Select all that apply)</span>
+                    </div>
+                    <div class="service-options">
+                        <label class="service-checkbox">
+                            <input type="checkbox" name="service" value="diagnostics">
+                            <span>Diagnostics & Coding</span>
+                        </label>
+                        <label class="service-checkbox">
+                            <input type="checkbox" name="service" value="engine">
+                            <span>Engine Service</span>
+                        </label>
+                        <label class="service-checkbox">
+                            <input type="checkbox" name="service" value="performance">
+                            <span>Performance Upgrade</span>
+                        </label>
+                        <label class="service-checkbox">
+                            <input type="checkbox" name="service" value="suspension">
+                            <span>Suspension & Brakes</span>
+                        </label>
+                        <label class="service-checkbox">
+                            <input type="checkbox" name="service" value="electrical">
+                            <span>Electrical Systems</span>
+                        </label>
+                        <label class="service-checkbox">
+                            <input type="checkbox" name="service" value="maintenance">
+                            <span>General Maintenance</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Appointment Details -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="section-number">4</span>
+                        Appointment Details
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="preferredDate">Preferred Date <span class="required">*</span></label>
+                            <input type="date" id="preferredDate" name="preferredDate" class="form-input" required>
+                            <div class="error-message">Please select a preferred date</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferredTime">Preferred Time <span class="required">*</span></label>
+                            <select id="preferredTime" name="preferredTime" class="form-select" required>
+                                <option value="">Select time</option>
+                                <option value="8:00 AM">8:00 AM</option>
+                                <option value="9:00 AM">9:00 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="12:00 PM">12:00 PM</option>
+                                <option value="1:00 PM">1:00 PM</option>
+                                <option value="2:00 PM">2:00 PM</option>
+                                <option value="3:00 PM">3:00 PM</option>
+                                <option value="4:00 PM">4:00 PM</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                            </select>
+                            <div class="error-message">Please select a preferred time</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Additional Notes / Problem Description</label>
+                        <textarea id="notes" name="notes" class="form-textarea" placeholder="Describe any issues or specific requests..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-button">
+                    Submit Booking Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BMW M Selection</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="booking.html">Book Service</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="services.html#diagnostics">Diagnostics & Coding</a></li>
+                    <li><a href="services.html#performance">Performance Upgrades</a></li>
+                    <li><a href="services.html#maintenance">Maintenance</a></li>
+                    <li><a href="services.html#suspension">Suspension & Brakes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📧 info@bmwmselection.com</li>
+                    <li>📍 123 Performance Drive</li>
+                    <li>⏰ Mon-Sat: 8AM - 6PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BMW M Selection. All rights reserved. | Independent BMW Specialist</p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('bookingForm');
+        const successMessage = document.getElementById('successMessage');
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('preferredDate').min = today;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            let isValid = true;
+            const requiredFields = form.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                const formGroup = field.closest('.form-group');
+                if (!field.value.trim()) {
+                    formGroup.classList.add('error');
+                    isValid = false;
+                } else {
+                    formGroup.classList.remove('error');
+                }
+            });
+
+            // Validate email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value && !emailRegex.test(email.value)) {
+                email.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Get form data
+                const formData = new FormData(form);
+                const services = [];
+                formData.getAll('service').forEach(service => {
+                    services.push(service);
+                });
+
+                // Create booking object
+                const booking = {
+                    fullName: formData.get('fullName'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    bmwModel: formData.get('bmwModel'),
+                    year: formData.get('year'),
+                    vin: formData.get('vin'),
+                    services: services,
+                    preferredDate: formData.get('preferredDate'),
+                    preferredTime: formData.get('preferredTime'),
+                    notes: formData.get('notes')
+                };
+
+                console.log('Booking submitted:', booking);
+
+                // Show success message
+                successMessage.classList.add('show');
+                form.reset();
+
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                // In a real application, you would send this to a server via:
+                // - Email API (e.g., SendGrid, EmailJS)
+                // - WhatsApp API
+                // - Your backend server
+                // Example with WhatsApp (opens WhatsApp with pre-filled message):
+                const whatsappMessage = `New Service Booking Request:
+Name: ${booking.fullName}
+Phone: ${booking.phone}
+Email: ${booking.email}
+BMW Model: ${booking.bmwModel} ${booking.year}
+Services: ${booking.services.join(', ')}
+Preferred Date: ${booking.preferredDate}
+Preferred Time: ${booking.preferredTime}
+Notes: ${booking.notes}`;
+                
+                // Uncomment to enable WhatsApp integration:
+                // const whatsappUrl = `https://wa.me/1555123456?text=${encodeURIComponent(whatsappMessage)}`;
+                // setTimeout(() => {
+                //     window.open(whatsappUrl, '_blank');
+                // }, 1000);
+            } else {
+                // Scroll to first error
+                const firstError = form.querySelector('.form-group.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+
+        // Remove error state on input
+        form.querySelectorAll('.form-input, .form-select').forEach(input => {
+            input.addEventListener('input', function() {
+                this.closest('.form-group').classList.remove('error');
+            });
+        });
+    </script>
+</body>
+</html>

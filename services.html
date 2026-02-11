@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - BMW M Selection</title>
+    <meta name="description" content="Complete BMW service solutions: diagnostics, performance upgrades, maintenance, and more. BMW specialist services.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bmw-white: #FFFFFF;
+            --bmw-light-gray: #F4F4F4;
+            --bmw-gray: #E8E8E8;
+            --bmw-dark-gray: #666666;
+            --bmw-black: #1C1C1C;
+            --bmw-blue-light: #1C69D4;
+            --bmw-blue-dark: #0066B1;
+            --bmw-m-blue: #00A4E4;
+            --bmw-m-red: #E31E24;
+            --bmw-m-purple: #7B2F8E;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bmw-white);
+            color: var(--bmw-black);
+            line-height: 1.6;
+        }
+
+        /* Navigation - Same as homepage */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bmw-white);
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bmw-black);
+            text-decoration: none;
+        }
+
+        .logo-m {
+            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bmw-dark-gray);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--bmw-blue-light);
+        }
+
+        .cta-button {
+            background: var(--bmw-blue-light);
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--bmw-blue-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--bmw-light-gray), var(--bmw-white));
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--bmw-black);
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--bmw-dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Services Detail Section */
+        .services-detail {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .service-detail-card {
+            background: white;
+            border: 1px solid var(--bmw-gray);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .service-detail-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-header {
+            padding: 2.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bmw-light-gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .service-header:hover {
+            border-bottom-color: var(--bmw-m-blue);
+        }
+
+        .service-header-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .service-icon-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--bmw-blue-light), var(--bmw-m-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .service-header-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--bmw-black);
+        }
+
+        .service-header-info p {
+            color: var(--bmw-dark-gray);
+            font-size: 1.1rem;
+        }
+
+        .service-expand-icon {
+            font-size: 2rem;
+            color: var(--bmw-blue-light);
+            transition: transform 0.3s ease;
+        }
+
+        .service-detail-card.active .service-expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .service-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .service-detail-card.active .service-content {
+            max-height: 2000px;
+        }
+
+        .service-content-inner {
+            padding: 2.5rem;
+            background: white;
+        }
+
+        .service-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .feature-check {
+            color: var(--bmw-m-blue);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--bmw-black);
+        }
+
+        .feature-text p {
+            color: var(--bmw-dark-gray);
+            font-size: 0.95rem;
+        }
+
+        .service-pricing {
+            background: var(--bmw-light-gray);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .pricing-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pricing-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pricing-item h5 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--bmw-black);
+        }
+
+        .pricing-item .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bmw-blue-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-item p {
+            font-size: 0.9rem;
+            color: var(--bmw-dark-gray);
+        }
+
+        .service-cta {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .service-book-btn {
+            background: var(--bmw-blue-light);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .service-book-btn:hover {
+            background: var(--bmw-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bmw-black);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--bmw-m-blue);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .whatsapp-btn {
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .service-header-left {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .service-header-info h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="cta-button">Book Service</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Our Services</h1>
+        <p class="page-subtitle">Complete BMW care from diagnostics to performance upgrades. Every service delivered with precision and expertise.</p>
+    </section>
+
+    <!-- Services Detail -->
+    <section class="services-detail">
+        <!-- Service 1: Diagnostics -->
+        <div class="service-detail-card" id="diagnostics">
+            <div class="service-header" onclick="toggleService(this)">
+                <div class="service-header-left">
+                    <div class="service-icon-large">🔧</div>
+                    <div class="service-header-info">
+                        <h3>BMW Diagnostics & Coding</h3>
+                        <p>Advanced BMW-specific diagnostic tools and software coding</p>
+                    </div>
+                </div>
+                <div class="service-expand-icon">▼</div>
+            </div>
+            <div class="service-content">
+                <div class="service-content-inner">
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Complete System Scan</h4>
+                                <p>Full diagnostic scan of all BMW systems and modules</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>BMW Coding</h4>
+                                <p>Software coding and programming for feature activation</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Fault Code Analysis</h4>
+                                <p>Expert interpretation and resolution of error codes</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Module Programming</h4>
+                                <p>ECU, TCU, and other module updates and programming</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-pricing">
+                        <h4 class="pricing-title">Service Pricing</h4>
+                        <div class="pricing-grid">
+                            <div class="pricing-item">
+                                <h5>Basic Diagnostic</h5>
+                                <div class="price">$150</div>
+                                <p>Complete system scan with report</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Coding Service</h5>
+                                <div class="price">$200+</div>
+                                <p>Software coding and feature activation</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Module Programming</h5>
+                                <div class="price">$300+</div>
+                                <p>ECU/TCU programming and updates</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-cta">
+                        <a href="booking.html" class="service-book-btn">Book This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2: Engine & Transmission -->
+        <div class="service-detail-card" id="engine">
+            <div class="service-header" onclick="toggleService(this)">
+                <div class="service-header-left">
+                    <div class="service-icon-large">⚙️</div>
+                    <div class="service-header-info">
+                        <h3>Engine & Transmission Service</h3>
+                        <p>Expert powertrain service, repair, and optimization</p>
+                    </div>
+                </div>
+                <div class="service-expand-icon">▼</div>
+            </div>
+            <div class="service-content">
+                <div class="service-content-inner">
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Engine Repair</h4>
+                                <p>Complete engine diagnostics and repair services</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Transmission Service</h4>
+                                <p>Automatic and manual transmission maintenance</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Timing Service</h4>
+                                <p>Timing chain/belt service and replacement</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Performance Tuning</h4>
+                                <p>Engine optimization and power enhancement</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-pricing">
+                        <h4 class="pricing-title">Service Pricing</h4>
+                        <div class="pricing-grid">
+                            <div class="pricing-item">
+                                <h5>Engine Service</h5>
+                                <div class="price">From $500</div>
+                                <p>Based on required work</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Transmission Service</h5>
+                                <div class="price">From $400</div>
+                                <p>Fluid change and inspection</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Major Service</h5>
+                                <div class="price">Custom Quote</div>
+                                <p>Comprehensive powertrain work</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-cta">
+                        <a href="booking.html" class="service-book-btn">Book This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3: Performance Upgrades -->
+        <div class="service-detail-card" id="performance">
+            <div class="service-header" onclick="toggleService(this)">
+                <div class="service-header-left">
+                    <div class="service-icon-large">🚀</div>
+                    <div class="service-header-info">
+                        <h3>Performance Upgrades</h3>
+                        <p>ECU tuning, exhaust systems, and M Performance parts</p>
+                    </div>
+                </div>
+                <div class="service-expand-icon">▼</div>
+            </div>
+            <div class="service-content">
+                <div class="service-content-inner">
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>ECU Tuning</h4>
+                                <p>Stage 1, 2, 3 performance tuning and remapping</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Exhaust Systems</h4>
+                                <p>Performance exhaust installation and custom work</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>M Performance Parts</h4>
+                                <p>Genuine BMW M Performance parts installation</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Air Intake Systems</h4>
+                                <p>Cold air intakes and performance filters</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-pricing">
+                        <h4 class="pricing-title">Service Pricing</h4>
+                        <div class="pricing-grid">
+                            <div class="pricing-item">
+                                <h5>Stage 1 Tune</h5>
+                                <div class="price">From $800</div>
+                                <p>ECU optimization</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Exhaust Install</h5>
+                                <div class="price">From $500</div>
+                                <p>Performance exhaust fitting</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Full Build</h5>
+                                <div class="price">Custom Quote</div>
+                                <p>Complete performance package</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-cta">
+                        <a href="booking.html" class="service-book-btn">Book This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 4: Suspension & Brakes -->
+        <div class="service-detail-card" id="suspension">
+            <div class="service-header" onclick="toggleService(this)">
+                <div class="service-header-left">
+                    <div class="service-icon-large">🛞</div>
+                    <div class="service-header-info">
+                        <h3>Suspension & Brakes</h3>
+                        <p>Precision suspension setup and high-performance braking</p>
+                    </div>
+                </div>
+                <div class="service-expand-icon">▼</div>
+            </div>
+            <div class="service-content">
+                <div class="service-content-inner">
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Suspension Service</h4>
+                                <p>Coilovers, springs, dampers installation and setup</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Brake Upgrades</h4>
+                                <p>Big brake kits and performance pads/rotors</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Wheel Alignment</h4>
+                                <p>Precision 4-wheel alignment and corner balancing</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Bushings & Arms</h4>
+                                <p>Control arms, bushings, and linkage replacement</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-pricing">
+                        <h4 class="pricing-title">Service Pricing</h4>
+                        <div class="pricing-grid">
+                            <div class="pricing-item">
+                                <h5>Brake Service</h5>
+                                <div class="price">From $400</div>
+                                <p>Pads, rotors, and fluid</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Suspension Install</h5>
+                                <div class="price">From $800</div>
+                                <p>Coilover installation</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Alignment</h5>
+                                <div class="price">$200</div>
+                                <p>4-wheel precision alignment</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-cta">
+                        <a href="booking.html" class="service-book-btn">Book This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 5: Electrical Systems -->
+        <div class="service-detail-card" id="electrical">
+            <div class="service-header" onclick="toggleService(this)">
+                <div class="service-header-left">
+                    <div class="service-icon-large">⚡</div>
+                    <div class="service-header-info">
+                        <h3>Electrical Systems</h3>
+                        <p>BMW electrical diagnostics and iDrive updates</p>
+                    </div>
+                </div>
+                <div class="service-expand-icon">▼</div>
+            </div>
+            <div class="service-content">
+                <div class="service-content-inner">
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Electrical Diagnostics</h4>
+                                <p>Complete electrical system testing and repair</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>iDrive Updates</h4>
+                                <p>Navigation and infotainment system updates</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Battery Service</h4>
+                                <p>Battery testing, registration, and replacement</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Sensor Calibration</h4>
+                                <p>Camera, radar, and sensor calibration services</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-pricing">
+                        <h4 class="pricing-title">Service Pricing</h4>
+                        <div class="pricing-grid">
+                            <div class="pricing-item">
+                                <h5>Electrical Diagnostic</h5>
+                                <div class="price">$150</div>
+                                <p>System scan and testing</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Battery Service</h5>
+                                <div class="price">From $300</div>
+                                <p>Install and registration</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>iDrive Update</h5>
+                                <div class="price">$250</div>
+                                <p>Software and map updates</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-cta">
+                        <a href="booking.html" class="service-book-btn">Book This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 6: General Maintenance -->
+        <div class="service-detail-card" id="maintenance">
+            <div class="service-header" onclick="toggleService(this)">
+                <div class="service-header-left">
+                    <div class="service-icon-large">🔍</div>
+                    <div class="service-header-info">
+                        <h3>General Maintenance</h3>
+                        <p>Regular service and comprehensive BMW care packages</p>
+                    </div>
+                </div>
+                <div class="service-expand-icon">▼</div>
+            </div>
+            <div class="service-content">
+                <div class="service-content-inner">
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Oil Service</h4>
+                                <p>Premium oil change with genuine BMW filters</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Inspection Service</h4>
+                                <p>Complete vehicle inspection and report</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Service Packages</h4>
+                                <p>Comprehensive maintenance packages</p>
+                            </div>
+                        </div>
+                        <div class="service-feature">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-text">
+                                <h4>Pre-Purchase Inspection</h4>
+                                <p>Detailed inspection for used BMW purchases</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-pricing">
+                        <h4 class="pricing-title">Service Pricing</h4>
+                        <div class="pricing-grid">
+                            <div class="pricing-item">
+                                <h5>Oil Service</h5>
+                                <div class="price">From $200</div>
+                                <p>Oil and filter change</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Inspection I</h5>
+                                <div class="price">$400</div>
+                                <p>Minor service package</p>
+                            </div>
+                            <div class="pricing-item">
+                                <h5>Inspection II</h5>
+                                <div class="price">$800</div>
+                                <p>Major service package</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-cta">
+                        <a href="booking.html" class="service-book-btn">Book This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BMW M Selection</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="booking.html">Book Service</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#diagnostics">Diagnostics & Coding</a></li>
+                    <li><a href="#performance">Performance Upgrades</a></li>
+                    <li><a href="#maintenance">Maintenance</a></li>
+                    <li><a href="#suspension">Suspension & Brakes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📧 info@bmwmselection.com</li>
+                    <li>📍 123 Performance Drive</li>
+                    <li>⏰ Mon-Sat: 8AM - 6PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BMW M Selection. All rights reserved. | Independent BMW Specialist</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <div class="floating-contact">
+        <a href="https://wa.me/1555123456" target="_blank" class="whatsapp-btn">💬</a>
+    </div>
+
+    <script>
+        function toggleService(header) {
+            const card = header.parentElement;
+            const allCards = document.querySelectorAll('.service-detail-card');
+            
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            card.classList.toggle('active');
+        }
+
+        // Auto-expand if hash in URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const card = document.querySelector(hash);
+                if (card && card.classList.contains('service-detail-card')) {
+                    card.classList.add('active');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
