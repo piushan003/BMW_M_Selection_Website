@@ -11,10 +11,27 @@
         rel="stylesheet">
     <link rel="stylesheet" href="dark-mode-guide.css">
     <style>
-        /* Shared styles (Navbar, Footer, Buttons, Theme) are loaded from dark-mode-guide.css */
-
         :root {
-            /* Page-specific variables if needed, others inherited from shared CSS */
+            --bmw-white: #FFFFFF;
+            --bmw-light-gray: #F4F4F4;
+            --bmw-gray: #E8E8E8;
+            --bmw-dark-gray: #666666;
+            --bmw-black: #1C1C1C;
+            --bmw-blue-light: #1C69D4;
+            --bmw-blue-dark: #0066B1;
+            --bmw-m-blue: #00A4E4;
+            --bmw-m-red: #E31E24;
+            --bmw-m-purple: #7B2F8E;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            /* Page specific vars */
+            --bg-primary: var(--bmw-white);
+            --bg-secondary: var(--bmw-light-gray);
+            --text-primary: var(--bmw-black);
+            --text-secondary: var(--bmw-dark-gray);
+            --border-color: var(--bmw-gray);
+            --bg-card: #FFFFFF;
         }
 
         * {
@@ -28,6 +45,75 @@
             background: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bmw-white);
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bmw-dark-gray);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--bmw-blue-light);
+        }
+
+        .cta-button {
+            background: var(--bmw-blue-light);
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--bmw-blue-dark);
+            transform: translateY(-2px);
         }
 
         /* Booking Container */
@@ -240,7 +326,53 @@
             display: block;
         }
 
-        /* Footer styles removed - using shared CSS */
+        /* Footer */
+        .footer {
+            background: var(--bmw-black);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--bmw-m-blue);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
 
         @media (max-width: 768px) {
             .booking-title {
@@ -260,28 +392,18 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
                 <img src="logo.png" alt="BMW M Selection" class="logo-img">
             </a>
-            <div class="nav-right">
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="booking.html" class="cta-button">Book Service</a></li>
-                </ul>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                    <span class="theme-icon">🌙</span>
-                </button>
-                <div class="mobile-toggle" id="mobileToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="cta-button">Book Service</a></li>
+            </ul>
         </div>
     </nav>
 
@@ -442,7 +564,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="notes">Additional Notes / Problem Description</label>
+                        <label for="notes">Additional Notes / Problem description</label>
                         <textarea id="notes" name="notes" class="form-textarea"
                             placeholder="Describe any issues or specific requests..."></textarea>
                     </div>
@@ -461,7 +583,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>BMW M Selection</h3>
-                <p style="color: var(--text-secondary); line-height: 1.8;">Your trusted BMW specialist for precision
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision
                     maintenance, diagnostics, and performance services.</p>
             </div>
             <div class="footer-section">
@@ -569,27 +691,6 @@
                 setTimeout(() => {
                     successMessage.classList.remove('show');
                 }, 5000);
-
-                // In a real application, you would send this to a server via:
-                // - Email API (e.g., SendGrid, EmailJS)
-                // - WhatsApp API
-                // - Your backend server
-                // Example with WhatsApp (opens WhatsApp with pre-filled message):
-                const whatsappMessage = `New Service Booking Request:
-Name: ${booking.fullName}
-Phone: ${booking.phone}
-Email: ${booking.email}
-BMW Model: ${booking.bmwModel} ${booking.year}
-Services: ${booking.services.join(', ')}
-Preferred Date: ${booking.preferredDate}
-Preferred Time: ${booking.preferredTime}
-Notes: ${booking.notes}`;
-
-                // Uncomment to enable WhatsApp integration:
-                // const whatsappUrl = `https://wa.me/1555123456?text=${encodeURIComponent(whatsappMessage)}`;
-                // setTimeout(() => {
-                //     window.open(whatsappUrl, '_blank');
-                // }, 1000);
             } else {
                 // Scroll to first error
                 const firstError = form.querySelector('.form-group.error');
@@ -608,36 +709,8 @@ Notes: ${booking.notes}`;
                 this.closest('.form-group').classList.remove('error');
             });
         });
-
-        // Dark Mode & Mobile Menu Logic
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.querySelector('.theme-icon');
-        const htmlElement = document.documentElement;
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        htmlElement.setAttribute('data-theme', currentTheme);
-        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = htmlElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                htmlElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            });
-        }
-
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', function () {
-                navLinks.classList.toggle('active');
-            });
-        }
     </script>
+    <script src="dark-mode-toggle.js"></script>
 </body>
 
 </html>

@@ -1,148 +1,89 @@
-/* Shared Dark Mode & Theme Styles for BMW M Selection Website */
+/* Dark Mode Variable Overrides */
+/* Dark Mode Variable Overrides */
+html[data-theme="dark"] {
+    /* Override the variables used in services.html, gallery.html, etc. */
+    --bmw-white: #0F172A;
+    /* Main Background */
+    --bmw-light-gray: #1E293B;
+    /* Secondary Background */
+    --bmw-gray: #334155;
+    /* Borders */
+    --bmw-dark-gray: #94A3B8;
+    /* Secondary Text */
+    --bmw-black: #F1F5F9;
+    /* Main Text */
 
-:root {
-    --bmw-blue-light: #1C69D4;
-    --bmw-blue-dark: #0066B1;
-    --bmw-m-blue: #00A4E4;
-    --bmw-m-red: #E31E24;
-    --bmw-m-purple: #7B2F8E;
-    
-    /* Light mode */
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #F8F9FA;
-    --bg-card: #FFFFFF;
-    --text-primary: #1C1C1C;
-    --text-secondary: #64748B;
-    --border-color: #E2E8F0;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
-    --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
-}
-
-[data-theme="dark"] {
+    /* Ensure existing semantic vars also map if used */
     --bg-primary: #0F172A;
     --bg-secondary: #1E293B;
-    --bg-card: #1E293B;
     --text-primary: #F1F5F9;
     --text-secondary: #94A3B8;
     --border-color: #334155;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.6);
-    --shadow-lg: 0 10px 40px rgba(0,0,0,0.7);
-    --shadow-xl: 0 20px 60px rgba(0,0,0,0.8);
+    --bg-card: #1E293B;
+
+    /* Shadow adjustments for dark mode */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
-body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Shared Navbar Components */
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
+/* Toggle Button Styles */
 .theme-toggle {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: var(--bg-secondary);
-    border: 2px solid var(--border-color);
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--bmw-black);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    transition: background-color 0.3s ease;
 }
 
 .theme-toggle:hover {
-    transform: scale(1.05);
-    border-color: var(--bmw-m-blue);
-    box-shadow: var(--shadow-md);
+    background-color: var(--bmw-light-gray);
 }
 
-.theme-icon {
-    position: relative;
-    z-index: 1;
-    transition: transform 0.5s ease;
+.toggle-icon {
+    font-size: 1.2rem;
+    line-height: 1;
 }
 
-.theme-toggle:active .theme-icon {
-    transform: rotate(360deg);
-}
-
-/* Logo Dark Mode Adjustment */
+/* Dark Mode Specific Tweaks */
 [data-theme="dark"] .logo-img {
-    filter: brightness(1.1) drop-shadow(0 2px 12px rgba(255,255,255,0.1));
+    filter: brightness(0) invert(1);
+    /* Invert logo to white in dark mode */
 }
 
-/* Mobile Toggle */
-.mobile-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
+[data-theme="dark"] .service-detail-card,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .booking-card,
+[data-theme="dark"] .gallery-item {
+    background-color: var(--bg-card);
+    border-color: var(--bmw-gray);
 }
 
-.mobile-toggle span {
-    width: 25px;
-    height: 3px;
-    background: var(--text-primary);
-    transition: all 0.3s ease;
-    border-radius: 2px;
+[data-theme="dark"] .service-content-inner {
+    background-color: var(--bg-card);
 }
 
-/* Other Shared Elements */
-.cta-button {
-    background: linear-gradient(135deg, var(--bmw-blue-light), var(--bmw-blue-dark));
-    color: white;
-    padding: 0.75rem 1.8rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(28,105,212,0.3);
+[data-theme="dark"] .service-header {
+    background-color: var(--bmw-light-gray);
 }
 
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(28,105,212,0.4);
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .form-textarea {
+    background-color: var(--bmw-white);
+    /* Which is now dark */
+    color: var(--bmw-black);
+    /* Which is now light */
+    border-color: var(--bmw-gray);
 }
 
-/* Responsive adjustments for mobile */
-@media (max-width: 768px) {
-    .mobile-toggle {
-        display: flex;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background: var(--bg-card);
-        flex-direction: column;
-        padding: 2rem;
-        transition: left 0.3s ease;
-        box-shadow: var(--shadow-lg);
-        border-top: 1px solid var(--border-color);
-        z-index: 999;
-    }
-
-    .nav-links.active {
-        left: 0;
-    }
-
-    .nav-links li {
-        width: 100%;
-        text-align: center;
-    }
+[data-theme="dark"] .footer {
+    background-color: #020617;
+    /* Even darker for footer */
+    border-top: 1px solid var(--bmw-gray);
 }
