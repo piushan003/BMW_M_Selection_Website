@@ -10,19 +10,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bmw-white: #FFFFFF;
-            --bmw-light-gray: #F4F4F4;
-            --bmw-gray: #E8E8E8;
-            --bmw-dark-gray: #666666;
-            --bmw-black: #1C1C1C;
             --bmw-blue-light: #1C69D4;
             --bmw-blue-dark: #0066B1;
             --bmw-m-blue: #00A4E4;
             --bmw-m-red: #E31E24;
             --bmw-m-purple: #7B2F8E;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            
+            /* Light mode */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --bg-card: #FFFFFF;
+            --text-primary: #1C1C1C;
+            --text-secondary: #64748B;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --border-color: #334155;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.6);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.7);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.8);
         }
 
         * {
@@ -33,10 +50,11 @@
 
         body {
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bmw-white);
-            color: var(--bmw-black);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Navigation */
@@ -45,13 +63,16 @@
             top: 0;
             left: 0;
             right: 0;
-            background: var(--bmw-white);
+            background: var(--bg-primary);
+            backdrop-filter: blur(12px);
             z-index: 1000;
             transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
         }
 
         .navbar.scrolled {
             box-shadow: var(--shadow-md);
+            border-bottom-color: var(--border-color);
         }
 
         .nav-container {
@@ -64,20 +85,30 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--bmw-black);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            text-decoration: none;
         }
 
-        .logo-m {
-            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        .logo-img {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+        }
+
+        [data-theme="dark"] .logo-img {
+            filter: brightness(1.1) drop-shadow(0 2px 12px rgba(255,255,255,0.1));
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
 
         .nav-links {
@@ -89,10 +120,10 @@
 
         .nav-links a {
             text-decoration: none;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             font-weight: 500;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -103,12 +134,12 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--bmw-blue-light);
+            background: linear-gradient(90deg, var(--bmw-m-blue), var(--bmw-m-red));
             transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--bmw-blue-light);
+            color: var(--text-primary);
         }
 
         .nav-links a:hover::after {
@@ -116,21 +147,66 @@
         }
 
         .cta-button {
-            background: var(--bmw-blue-light);
+            background: linear-gradient(135deg, var(--bmw-blue-light), var(--bmw-blue-dark));
             color: white;
             padding: 0.75rem 1.8rem;
-            border-radius: 4px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(28,105,212,0.3);
         }
 
         .cta-button:hover {
-            background: var(--bmw-blue-dark);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(28,105,212,0.4);
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            border-color: var(--bmw-m-blue);
             box-shadow: var(--shadow-md);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-toggle:hover::before {
+            opacity: 0.1;
+        }
+
+        .theme-icon {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle:active .theme-icon {
+            transform: rotate(360deg);
         }
 
         .mobile-toggle {
@@ -143,15 +219,16 @@
         .mobile-toggle span {
             width: 25px;
             height: 3px;
-            background: var(--bmw-black);
+            background: var(--text-primary);
             transition: all 0.3s ease;
+            border-radius: 2px;
         }
 
         /* Hero Section */
         .hero {
             margin-top: 80px;
             min-height: 90vh;
-            background: linear-gradient(135deg, var(--bmw-light-gray) 0%, var(--bmw-white) 100%);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -164,15 +241,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            opacity: 0.15;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2300A4E4;stop-opacity:0.3"/><stop offset="50%" style="stop-color:%237B2F8E;stop-opacity:0.2"/><stop offset="100%" style="stop-color:%23E31E24;stop-opacity:0.3"/></linearGradient></defs><path d="M0,400 Q300,200 600,400 T1200,400 L1200,800 L0,800 Z" fill="url(%23g1)"/></svg>') no-repeat center;
+            opacity: 0.08;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2300A4E4;stop-opacity:0.5"/><stop offset="50%" style="stop-color:%237B2F8E;stop-opacity:0.3"/><stop offset="100%" style="stop-color:%23E31E24;stop-opacity:0.5"/></linearGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23g1)"/><circle cx="1000" cy="600" r="200" fill="url(%23g1)"/></svg>') no-repeat center;
             background-size: cover;
             animation: pulse 20s ease-in-out infinite;
         }
 
+        [data-theme="dark"] .hero-background {
+            opacity: 0.15;
+        }
+
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
         }
 
         .hero-content {
@@ -202,25 +283,41 @@
             }
         }
 
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(28,105,212,0.1), rgba(0,164,228,0.1));
+            border: 1px solid rgba(28,105,212,0.3);
+            color: var(--bmw-blue-light);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
         .hero-title {
-            font-size: 4rem;
-            font-weight: 700;
+            font-size: 4.5rem;
+            font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            color: var(--bmw-black);
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
         .hero-title-accent {
             background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-subtitle {
             font-size: 1.3rem;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             margin-bottom: 2.5rem;
             font-weight: 400;
+            line-height: 1.8;
         }
 
         .hero-buttons {
@@ -230,29 +327,31 @@
         }
 
         .hero-button-primary {
-            background: var(--bmw-blue-light);
+            background: linear-gradient(135deg, var(--bmw-blue-light), var(--bmw-blue-dark));
             color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 4px;
+            padding: 1.1rem 2.8rem;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 4px 20px rgba(28,105,212,0.3);
         }
 
         .hero-button-primary:hover {
-            background: var(--bmw-blue-dark);
             transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 30px rgba(28,105,212,0.4);
         }
 
         .hero-button-secondary {
-            background: transparent;
-            color: var(--bmw-black);
-            padding: 1rem 2.5rem;
-            border: 2px solid var(--bmw-black);
-            border-radius: 4px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 1.1rem 2.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
@@ -261,8 +360,8 @@
         }
 
         .hero-button-secondary:hover {
-            background: var(--bmw-black);
-            color: white;
+            border-color: var(--bmw-blue-light);
+            background: rgba(28,105,212,0.05);
             transform: translateY(-3px);
         }
 
@@ -284,48 +383,69 @@
 
         .hero-car-placeholder {
             width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, rgba(0,164,228,0.1), rgba(227,30,36,0.1));
-            border-radius: 8px;
+            height: 450px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: var(--bmw-dark-gray);
-            box-shadow: var(--shadow-lg);
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-xl);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-car-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(28,105,212,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         /* Services Section */
         .services {
-            padding: 6rem 2rem;
-            background: var(--bmw-white);
+            padding: 8rem 2rem;
+            background: var(--bg-primary);
         }
 
         .section-header {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 4rem;
+            margin: 0 auto 5rem;
         }
 
         .section-subtitle {
             color: var(--bmw-blue-light);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
             margin-bottom: 1rem;
         }
 
         .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--bmw-black);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
             margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
         }
 
         .section-description {
-            font-size: 1.1rem;
-            color: var(--bmw-dark-gray);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
             line-height: 1.8;
         }
 
@@ -334,15 +454,15 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .service-card {
-            background: var(--bmw-white);
-            border: 1px solid var(--bmw-gray);
-            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             padding: 2.5rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -358,12 +478,13 @@
             background: linear-gradient(90deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
         }
 
         .service-card:hover::before {
@@ -371,28 +492,29 @@
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, var(--bmw-blue-light), var(--bmw-m-blue));
-            border-radius: 8px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            font-size: 2rem;
+            box-shadow: 0 4px 16px rgba(28,105,212,0.3);
         }
 
         .service-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--bmw-black);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 1rem;
         }
 
         .service-description {
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             line-height: 1.8;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .service-learn-more {
@@ -411,8 +533,8 @@
 
         /* Why Choose Section */
         .why-choose {
-            padding: 6rem 2rem;
-            background: var(--bmw-light-gray);
+            padding: 8rem 2rem;
+            background: var(--bg-secondary);
         }
 
         .features-grid {
@@ -437,56 +559,66 @@
         .feature-item:nth-child(6) { animation-delay: 0.6s; }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: white;
+            width: 90px;
+            height: 90px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
+            margin: 0 auto 1.8rem;
+            font-size: 2.2rem;
             box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1);
+            border-color: var(--bmw-m-blue);
+            box-shadow: 0 8px 24px rgba(28,105,212,0.3);
         }
 
         .feature-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--bmw-black);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 1rem;
         }
 
         .feature-description {
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             line-height: 1.8;
         }
 
         /* Gallery Preview */
         .gallery-preview {
-            padding: 6rem 2rem;
-            background: var(--bmw-white);
+            padding: 8rem 2rem;
+            background: var(--bg-primary);
         }
 
         .gallery-grid {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
 
         .gallery-item {
-            height: 300px;
-            background: linear-gradient(135deg, rgba(0,164,228,0.1), rgba(227,30,36,0.1));
-            border-radius: 8px;
+            height: 350px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         .gallery-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
         }
 
         .gallery-placeholder {
@@ -495,14 +627,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            color: var(--bmw-dark-gray);
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
         /* Testimonials */
         .testimonials {
-            padding: 6rem 2rem;
-            background: var(--bmw-light-gray);
+            padding: 8rem 2rem;
+            background: var(--bg-secondary);
         }
 
         .testimonial-slider {
@@ -510,61 +643,86 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .testimonial-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2.8rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .testimonial-stars {
             color: #FFD700;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
         }
 
         .testimonial-text {
-            color: var(--bmw-dark-gray);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.8rem;
             font-style: italic;
+            font-size: 1.05rem;
         }
 
         .testimonial-author {
-            font-weight: 600;
-            color: var(--bmw-black);
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.1rem;
         }
 
         .testimonial-car {
-            color: var(--bmw-dark-gray);
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
         }
 
         /* CTA Section */
         .cta-section {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: linear-gradient(135deg, var(--bmw-blue-dark), var(--bmw-blue-light));
             color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.05)"/><circle cx="1100" cy="500" r="100" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.5;
         }
 
         .cta-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .cta-title {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
         }
 
         .cta-text {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
             opacity: 0.95;
         }
 
@@ -578,27 +736,28 @@
         .cta-btn-white {
             background: white;
             color: var(--bmw-blue-light);
-            padding: 1rem 2.5rem;
-            border-radius: 4px;
+            padding: 1.1rem 3rem;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
         .cta-btn-white:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(255,255,255,0.3);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.3);
         }
 
         .cta-btn-outline {
             background: transparent;
             color: white;
-            padding: 1rem 2.5rem;
+            padding: 1.1rem 3rem;
             border: 2px solid white;
-            border-radius: 4px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
             transition: all 0.3s ease;
         }
@@ -611,9 +770,10 @@
 
         /* Footer */
         .footer {
-            background: var(--bmw-black);
-            color: white;
-            padding: 4rem 2rem 2rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 5rem 2rem 2rem;
         }
 
         .footer-content {
@@ -639,7 +799,7 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.8);
+            color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -652,9 +812,9 @@
             max-width: 1400px;
             margin: 0 auto;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid var(--border-color);
             text-align: center;
-            color: rgba(255,255,255,0.6);
+            color: var(--text-secondary);
         }
 
         /* Floating Contact Button */
@@ -666,8 +826,8 @@
         }
 
         .whatsapp-btn {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             background: #25D366;
             border-radius: 50%;
             display: flex;
@@ -675,7 +835,7 @@
             justify-content: center;
             color: white;
             font-size: 2rem;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
             transition: all 0.3s ease;
             cursor: pointer;
             text-decoration: none;
@@ -683,7 +843,7 @@
 
         .whatsapp-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
         }
 
         /* Responsive */
@@ -698,11 +858,12 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 80px);
-                background: white;
+                background: var(--bg-card);
                 flex-direction: column;
                 padding: 2rem;
                 transition: left 0.3s ease;
                 box-shadow: var(--shadow-lg);
+                border-top: 1px solid var(--border-color);
             }
 
             .nav-links.active {
@@ -715,7 +876,7 @@
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             .hero-subtitle {
@@ -723,7 +884,7 @@
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .services-grid,
@@ -734,7 +895,13 @@
             }
 
             .cta-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -743,18 +910,25 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="booking.html" class="cta-button">Book Service</a></li>
-            </ul>
-            <div class="mobile-toggle" id="mobileToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="BMW M Selection" class="logo-img">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="booking.html" class="cta-button">Book Service</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <div class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
@@ -764,14 +938,18 @@
         <div class="hero-background"></div>
         <div class="hero-content">
             <div class="hero-text">
+                <div class="hero-badge">🏆 BMW Specialist Since 2010</div>
                 <h1 class="hero-title">
                     <span class="hero-title-accent">Precision.</span><br>
                     Performance.<br>
                     BMW Excellence.
                 </h1>
-                <p class="hero-subtitle">Specialized BMW Maintenance, Diagnostics & Performance Services</p>
+                <p class="hero-subtitle">Specialized BMW Maintenance, Diagnostics & Performance Services delivered with unmatched expertise and precision.</p>
                 <div class="hero-buttons">
-                    <a href="booking.html" class="hero-button-primary">Book Service</a>
+                    <a href="booking.html" class="hero-button-primary">
+                        Book Service
+                        <span>→</span>
+                    </a>
                     <a href="services.html" class="hero-button-secondary">View Services</a>
                 </div>
             </div>
@@ -784,7 +962,7 @@
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="section-header">
-            <div class="section-subtitle">Our Services</div>
+            <div class="section-subtitle">OUR SERVICES</div>
             <h2 class="section-title">Complete BMW Care Solutions</h2>
             <p class="section-description">From precision diagnostics to performance upgrades, we deliver excellence in every service.</p>
         </div>
@@ -831,7 +1009,7 @@
     <!-- Why Choose Section -->
     <section class="why-choose">
         <div class="section-header">
-            <div class="section-subtitle">Why Choose Us</div>
+            <div class="section-subtitle">WHY CHOOSE US</div>
             <h2 class="section-title">BMW Excellence Guaranteed</h2>
         </div>
         <div class="features-grid">
@@ -871,7 +1049,7 @@
     <!-- Gallery Preview -->
     <section class="gallery-preview">
         <div class="section-header">
-            <div class="section-subtitle">Our Work</div>
+            <div class="section-subtitle">OUR WORK</div>
             <h2 class="section-title">Precision in Action</h2>
             <p class="section-description">See the quality and expertise we bring to every BMW that enters our workshop.</p>
         </div>
@@ -889,7 +1067,7 @@
                 <div class="gallery-placeholder">M4 Brake Upgrade</div>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 3rem;">
+        <div style="text-align: center; margin-top: 4rem;">
             <a href="gallery.html" class="hero-button-primary">View Full Gallery</a>
         </div>
     </section>
@@ -897,7 +1075,7 @@
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="section-header">
-            <div class="section-subtitle">Testimonials</div>
+            <div class="section-subtitle">TESTIMONIALS</div>
             <h2 class="section-title">What Our Clients Say</h2>
         </div>
         <div class="testimonial-slider">
@@ -939,7 +1117,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>BMW M Selection</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -981,6 +1159,25 @@
     </div>
 
     <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.querySelector('.theme-icon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');

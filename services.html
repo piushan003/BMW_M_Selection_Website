@@ -57,17 +57,19 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--bmw-black);
+            display: flex;
+            align-items: center;
             text-decoration: none;
         }
 
-        .logo-m {
-            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        .logo-img {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -405,7 +407,9 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="BMW M Selection" class="logo-img">
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>

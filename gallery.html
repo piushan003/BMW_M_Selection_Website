@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - BMW M Selection</title>
-    <meta name="description" content="Explore our BMW workshop gallery. See our precision work on M3, M4, X5, and other BMW models.">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="Explore our BMW workshop gallery. See our precision work on M3, M4, X5, and other BMW models.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dark-mode-guide.css">
     <style>
+        /* Shared styles (Navbar, Footer, Buttons, Theme) are loaded from dark-mode-guide.css */
+
         :root {
-            --bmw-white: #FFFFFF;
-            --bmw-light-gray: #F4F4F4;
-            --bmw-gray: #E8E8E8;
-            --bmw-dark-gray: #666666;
-            --bmw-black: #1C1C1C;
-            --bmw-blue-light: #1C69D4;
-            --bmw-blue-dark: #0066B1;
-            --bmw-m-blue: #00A4E4;
-            --bmw-m-red: #E31E24;
-            --bmw-m-purple: #7B2F8E;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            /* Page-specific variables if needed, others inherited from shared CSS */
         }
 
         * {
@@ -29,98 +23,25 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bmw-white);
-            color: var(--bmw-black);
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--bmw-white);
-            z-index: 1000;
-            box-shadow: var(--shadow-md);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--bmw-black);
-            text-decoration: none;
-        }
-
-        .logo-m {
-            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--bmw-dark-gray);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--bmw-blue-light);
-        }
-
-        .cta-button {
-            background: var(--bmw-blue-light);
-            color: white;
-            padding: 0.75rem 1.8rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: var(--bmw-blue-dark);
-            transform: translateY(-2px);
-        }
-
         /* Page Header */
         .page-header {
             margin-top: 80px;
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--bmw-light-gray), var(--bmw-white));
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .page-title {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--bmw-black);
+            color: var(--text-primary);
         }
 
         .page-subtitle {
             font-size: 1.3rem;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto;
         }
@@ -137,9 +58,9 @@
         }
 
         .filter-btn {
-            background: var(--bmw-white);
-            border: 2px solid var(--bmw-gray);
-            color: var(--bmw-dark-gray);
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
             padding: 0.75rem 2rem;
             border-radius: 50px;
             font-weight: 600;
@@ -177,6 +98,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
         }
 
         .gallery-item:hover {
@@ -191,12 +114,12 @@
         .gallery-image {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0,164,228,0.15), rgba(227,30,36,0.15));
+            background: linear-gradient(135deg, rgba(0, 164, 228, 0.15), rgba(227, 30, 36, 0.15));
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             position: relative;
         }
 
@@ -205,7 +128,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             color: white;
             padding: 2rem 1.5rem 1.5rem;
             transform: translateY(100%);
@@ -248,7 +171,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -267,7 +190,7 @@
         .lightbox-image {
             width: 100%;
             max-height: 80vh;
-            background: linear-gradient(135deg, rgba(0,164,228,0.2), rgba(227,30,36,0.2));
+            background: linear-gradient(135deg, rgba(0, 164, 228, 0.2), rgba(227, 30, 36, 0.2));
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -308,6 +231,7 @@
             font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            color: black;
         }
 
         .lightbox-close:hover {
@@ -320,7 +244,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             width: 60px;
             height: 60px;
@@ -335,7 +259,7 @@
         }
 
         .lightbox-nav:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-50%) scale(1.1);
         }
 
@@ -347,79 +271,7 @@
             right: 2rem;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--bmw-black);
-            color: white;
-            padding: 4rem 2rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--bmw-m-blue);
-        }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            color: rgba(255,255,255,0.6);
-        }
-
-        .floating-contact {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 999;
-        }
-
-        .whatsapp-btn {
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-        }
+        /* Footer styles removed - using shared CSS */
 
         @media (max-width: 768px) {
             .page-title {
@@ -445,25 +297,39 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="booking.html" class="cta-button">Book Service</a></li>
-            </ul>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="BMW M Selection" class="logo-img">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="booking.html" class="cta-button">Book Service</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <div class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Page Header -->
     <section class="page-header">
         <h1 class="page-title">Our Work Gallery</h1>
-        <p class="page-subtitle">Excellence in every detail. Explore our BMW workshop projects and precision craftsmanship.</p>
+        <p class="page-subtitle">Excellence in every detail. Explore our BMW workshop projects and precision
+            craftsmanship.</p>
     </section>
 
     <!-- Gallery Filters -->
@@ -638,7 +504,8 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>BMW M Selection</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">Your trusted BMW specialist for precision
+                    maintenance, diagnostics, and performance services.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -690,10 +557,10 @@
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const filter = btn.dataset.filter;
-                
+
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 visibleImages = [];
                 galleryItems.forEach(item => {
                     const categories = item.dataset.category;
@@ -716,11 +583,11 @@
                 const title = item.querySelector('.gallery-title').textContent;
                 const description = item.querySelector('.gallery-description').textContent;
                 const imageText = item.querySelector('.gallery-image span').textContent;
-                
+
                 document.getElementById('lightboxImage').innerHTML = `<span>${imageText}</span>`;
                 document.getElementById('lightboxTitle').textContent = title;
                 document.getElementById('lightboxDescription').textContent = description;
-                
+
                 currentImageIndex = visibleImages.indexOf(item);
                 document.getElementById('lightbox').classList.add('active');
             });
@@ -734,12 +601,12 @@
             currentImageIndex += direction;
             if (currentImageIndex < 0) currentImageIndex = visibleImages.length - 1;
             if (currentImageIndex >= visibleImages.length) currentImageIndex = 0;
-            
+
             const item = visibleImages[currentImageIndex];
             const title = item.querySelector('.gallery-title').textContent;
             const description = item.querySelector('.gallery-description').textContent;
             const imageText = item.querySelector('.gallery-image span').textContent;
-            
+
             document.getElementById('lightboxImage').innerHTML = `<span>${imageText}</span>`;
             document.getElementById('lightboxTitle').textContent = title;
             document.getElementById('lightboxDescription').textContent = description;
@@ -756,6 +623,36 @@
         document.getElementById('lightbox').addEventListener('click', (e) => {
             if (e.target.id === 'lightbox') closeLightbox();
         });
+
+        // Dark Mode & Mobile Menu Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.querySelector('.theme-icon');
+        const htmlElement = document.documentElement;
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        }
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+        }
     </script>
 </body>
+
 </html>

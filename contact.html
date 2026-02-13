@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - BMW M Selection</title>
-    <meta name="description" content="Get in touch with BMW M Selection. Visit us, call, or send a message. We're here to help with all your BMW needs.">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="Get in touch with BMW M Selection. Visit us, call, or send a message. We're here to help with all your BMW needs.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dark-mode-guide.css">
     <style>
+        /* Shared styles (Navbar, Footer, Buttons, Theme) are loaded from dark-mode-guide.css */
+
         :root {
-            --bmw-white: #FFFFFF;
-            --bmw-light-gray: #F4F4F4;
-            --bmw-gray: #E8E8E8;
-            --bmw-dark-gray: #666666;
-            --bmw-black: #1C1C1C;
-            --bmw-blue-light: #1C69D4;
-            --bmw-blue-dark: #0066B1;
-            --bmw-m-blue: #00A4E4;
-            --bmw-m-red: #E31E24;
-            --bmw-m-purple: #7B2F8E;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            /* Page-specific variables if needed, others inherited from shared CSS */
         }
 
         * {
@@ -29,98 +23,25 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bmw-white);
-            color: var(--bmw-black);
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--bmw-white);
-            z-index: 1000;
-            box-shadow: var(--shadow-md);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--bmw-black);
-            text-decoration: none;
-        }
-
-        .logo-m {
-            background: linear-gradient(135deg, var(--bmw-m-blue), var(--bmw-m-red), var(--bmw-m-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--bmw-dark-gray);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--bmw-blue-light);
-        }
-
-        .cta-button {
-            background: var(--bmw-blue-light);
-            color: white;
-            padding: 0.75rem 1.8rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: var(--bmw-blue-dark);
-            transform: translateY(-2px);
-        }
-
         /* Page Header */
         .page-header {
             margin-top: 80px;
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--bmw-light-gray), var(--bmw-white));
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .page-title {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--bmw-black);
+            color: var(--text-primary);
         }
 
         .page-subtitle {
             font-size: 1.3rem;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto;
         }
@@ -143,11 +64,12 @@
         }
 
         .contact-card {
-            background: white;
+            background: var(--bg-card);
             padding: 2rem;
             border-radius: 12px;
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .contact-card:hover {
@@ -171,12 +93,13 @@
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
+            color: white;
         }
 
         .contact-card h3 {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--bmw-black);
+            color: var(--text-primary);
         }
 
         .contact-details {
@@ -189,7 +112,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
             font-size: 1.05rem;
         }
 
@@ -212,17 +135,17 @@
             display: flex;
             justify-content: space-between;
             padding: 0.8rem;
-            background: var(--bmw-light-gray);
+            background: var(--bg-secondary);
             border-radius: 6px;
         }
 
         .hours-day {
             font-weight: 600;
-            color: var(--bmw-black);
+            color: var(--text-primary);
         }
 
         .hours-time {
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
         }
 
         .hours-row.today {
@@ -237,17 +160,18 @@
 
         /* Contact Form */
         .contact-form-section {
-            background: white;
+            background: var(--bg-card);
             padding: 3rem;
             border-radius: 12px;
             box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
         }
 
         .form-title {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: var(--bmw-black);
+            color: var(--text-primary);
         }
 
         .form-group {
@@ -258,14 +182,16 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--bmw-black);
+            color: var(--text-primary);
         }
 
         .form-input,
         .form-textarea {
             width: 100%;
             padding: 0.9rem 1.2rem;
-            border: 2px solid var(--bmw-gray);
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             border-radius: 6px;
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
@@ -276,7 +202,7 @@
         .form-textarea:focus {
             outline: none;
             border-color: var(--bmw-blue-light);
-            box-shadow: 0 0 0 3px rgba(28,105,212,0.1);
+            box-shadow: 0 0 0 3px rgba(28, 105, 212, 0.1);
         }
 
         .form-textarea {
@@ -324,6 +250,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -340,7 +267,7 @@
         .map-container {
             width: 100%;
             height: 500px;
-            background: var(--bmw-light-gray);
+            background: var(--bg-secondary);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
@@ -348,7 +275,8 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: var(--bmw-dark-gray);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
         /* Quick Actions */
@@ -396,53 +324,7 @@
             opacity: 0.95;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--bmw-black);
-            color: white;
-            padding: 4rem 2rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--bmw-m-blue);
-        }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            color: rgba(255,255,255,0.6);
-        }
+        /* Footer styles removed - using shared CSS */
 
         @media (max-width: 768px) {
             .page-title {
@@ -464,18 +346,31 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">BMW <span class="logo-m">M</span> Selection</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="booking.html" class="cta-button">Book Service</a></li>
-            </ul>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="BMW M Selection" class="logo-img">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="booking.html" class="cta-button">Book Service</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <div class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -631,7 +526,8 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>BMW M Selection</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Your trusted BMW specialist for precision maintenance, diagnostics, and performance services.</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">Your trusted BMW specialist for precision
+                    maintenance, diagnostics, and performance services.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -671,7 +567,7 @@
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('contactSuccessMessage');
 
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             const formData = new FormData(contactForm);
@@ -700,13 +596,43 @@
         // Highlight current day in hours
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const today = days[new Date().getDay()];
-        
+
         document.querySelectorAll('.hours-row').forEach(row => {
             const dayText = row.querySelector('.hours-day').textContent;
             if (dayText === today) {
                 row.classList.add('today');
             }
         });
+
+        // Dark Mode & Mobile Menu Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.querySelector('.theme-icon');
+        const htmlElement = document.documentElement;
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        }
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+        }
     </script>
 </body>
+
 </html>
